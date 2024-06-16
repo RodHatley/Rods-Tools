@@ -28,7 +28,6 @@ function UpdateStartMenu
     Rename-Item "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bak"
 
     $WebClient = New-Object System.Net.WebClient 
-    $WebClient.Credentials = New-Object System.Net.NetworkCredential("anonymous", "rod@aktion.com")
     $WebClient.DownloadFile($StartMenuFile,"$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin") 
 
     Stop-Process -Name StartMenuExperienceHost -Force
