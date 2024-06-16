@@ -24,7 +24,7 @@ function RemoveApp ([String] $name)
 # Download default Windows 11 Start Menu and Apply to current user
 function UpdateStartMenu
 {
-    $StartMenuFile = "https://zsjztg.dm.files.1drv.com/y4mKpUvC1q9xmU2L_Or8vXZhaBnLGGioKTyEt9df8ff1y_YWosaHqvye68hp6ZyPiWm7ApCmw4mgB57gUuEHRnWCsUJnIkV9GIb0aVurmFH6PauxZ_brrrmR8AL5IYe0_YpJb4pvBXS1YZ8vCzRgadVXLRgHAUrzcaseYE2v33EiCYvlRaq57KnSCz5iexUhADatu-1DHGbtyFL2FqPlS_5eA"
+    $StartMenuFile = "https://github.com/RodHatley/Rods-Tools/blob/main/Resources/start2.bin"
     Rename-Item "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bak"
 
     $WebClient = New-Object System.Net.WebClient 
