@@ -24,11 +24,13 @@ function RemoveApp ([String] $name)
 # Download default Windows 11 Start Menu and Apply to current user
 function UpdateStartMenu
 {
-    $StartMenuFile = "https://github.com/RodHatley/Rods-Tools/blob/main/Resources/start2.bin"
-    Rename-Item "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bak"
-
+    $StartMenuFile = "https://raw.githubusercontent.com/RodHatley/Rods-Tools/main/Resources/start2.bin"
+ 
     $WebClient = New-Object System.Net.WebClient 
-    $WebClient.DownloadFile($StartMenuFile,"$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin") 
+    $WebClient.DownloadFile($StartMenuFile,"$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.new") 
+
+    Rename-Item "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin" "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bak"
+    Rename-Item "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.new" "$env:UserProfile\AppData\Local\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState\start2.bin"
 
     Stop-Process -Name StartMenuExperienceHost -Force
 }
