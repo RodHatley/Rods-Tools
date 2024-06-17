@@ -41,6 +41,41 @@ function UpdateStartMenu
 #############################
 function Optimize-Win11
 {
+    <#
+    .SYNOPSIS
+    Optimizes the user and system settings on a new Windows 11 workstation
+    .DESCRIPTION
+    Removes applications that are not needed and tweaks some user and system settings to improve system
+    performance and reliability.
+    .NOTES
+    Must be run as Admin as some settings are system wide.
+    
+    Attempts to update App Installer (WINGET) using WINGET.  This works in 24H2, but earlier versions of Windows may have to update App Installer manually.
+	Remove Applications
+		Personal / Consumer version of Microsoft Teams
+		Gaming and Xbox and associates applications 
+		Spotify
+		Mixed Reality Portal
+	Unpin from TaskBar
+		TaskView
+		Chat (Personal Teams)
+		Microsoft Store
+		Amazon.com
+		MyHP
+		HP Audio Control
+		AI Meeting Manager
+	Update Start Menu to show more pined applications and less Recommendations
+	Optional - Update Start Menu (deletes existing and replaces with cleaner version)
+	Sets default Terminal to Windows Terminal
+	System Tray icons visible (not hidden
+		Microsoft Teams (New and Classic)
+		OneDrive
+	Power Changes
+		Disable Windows Fast Startup
+		Disable Standby / Sleep / Hibernate on AC Power
+    Disable Adobe Outlook Add-in from sending PDF as link using Adobe Cloud.
+    #>
+    
     param([Switch]$ClearStartMenu)
     
     Write-Host "Optimize Windows 11" -ForegroundColor Yellow
