@@ -56,12 +56,13 @@ function Optimize-Win11
 		Gaming and Xbox and associates applications 
 		Spotify
 		Mixed Reality Portal
+        myHP
+        Poly Lens
 	Unpin from TaskBar
 		TaskView
 		Chat (Personal Teams)
 		Microsoft Store
 		Amazon.com
-		MyHP
 		HP Audio Control
 		AI Meeting Manager
 	Update Start Menu to show more pined applications and less Recommendations
@@ -79,7 +80,7 @@ function Optimize-Win11
     param([Switch]$ClearStartMenu)
     
     Write-Host "Optimize Windows 11" -ForegroundColor Yellow
-    Write-Host "v24.6.14" -ForegroundColor Yellow
+    Write-Host "v24.6.28" -ForegroundColor Yellow
 
     # Check Admin Elevation Status
     if ((Get-AdminStatus) -ieq $false)
@@ -107,6 +108,10 @@ function Optimize-Win11
     RemoveApp "Spotify*"
     winget uninstall xbox
     winget uninstall "Mixed Reality Portal"
+    
+    # Remove HP Apps
+    winget uninstall "myHP" --silent
+    winget uninstall "Poly Lens" --silent
 
     Write-Host "`nApplying Taskbar and Start Menu optimizations..."
     # Remove Taskview and Chat Icons from Taskbar
@@ -119,9 +124,12 @@ function Optimize-Win11
     # Remove Microsoft Store Shortcut from Taskbar
     UnPinFromTaskBar 'Microsoft Store'
     UnPinFromTaskBar 'Amazon.com'
-    UnPinFromTaskBar 'MyHP'
     UnPinFromTaskBar 'HP Audio Control'
     UnPinFromTaskBar "AI Meeting Manager"
+
+    # Remove Printers
+    Remove-Printer "Fax" -ErrorAction SilentlyContinue
+    Remove-Printer "Microsoft XPS Document Writer" -ErrorAction SilentlyContinue
 
     # Set Default Terminal Application to Windows Terminal
     if(!(Test-Path -Path "HKCU:Console\%%Startup"))
