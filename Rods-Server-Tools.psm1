@@ -34,3 +34,64 @@ function Get-FailedWindowsLogons
 
 }
 
+function Set-WindowsUpdateConfig
+{
+<#
+.SYNOPSIS
+    .Sets Windows Update Settings on Windows Server 2016 and higher.
+.DESCRIPTION
+    .Sets Windows Update to install updates on Sunday mornings by default at 3AM local time if no command line arguments are used.
+.EXAMPLE
+------- Example 1: Set updates to be installed at 3AM local time (default) ----------
+    C:\PS> Set-WindowsUpdateConfig
+
+------- Example 2: Set earlier install at 1AM local time ----------------------------
+    C:\PS> Set-WindowsUpdateConfig -Early
+
+.NOTES
+    Author: Rod Hatley
+#>
+    param ([Switch] $Earlier,[Switch] $Later)
+
+    # Check Admin Elevation Status
+    if ((Get-AdminStatus) -ieq $false)
+    {
+        Write-Host "TERMINATING: This script needs to run from elevated PowerShell console." -ForegroundColor Red
+        Return
+    }
+    
+    if ($Earlier)
+    {
+        if($Earlier -eq $Later)
+        {
+            Write-Host "Conflicting Command Line Arguments used.  Cannot use -Earlier and -Latter at the same time" -ForegroundColor Red
+            Write-Host "No changes were made."
+            Return
+        }
+    }
+
+    $time = 3
+    if ($Earlier)
+    {
+        $time = 1
+    }
+
+    if ($Later)
+    {
+        $time = 5
+    }
+
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "AlwaysAutoRebootAtScheduledTime" -Value 1 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "AlwaysAutoRebootAtScheduledTimeMinutes" -Value 15 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "DetectionFrequencyEnabled" -Value 1 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "DetectionFrequency" -Value 12 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "NoAutoUpdate" -Value 0 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "AUOptions" -Value 4 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "ScheduledInstallDay" -Value 1 -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "ScheduledInstallTime" -Value $time -Type Dword -Force
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "ScheduledInstallEveryWeek" -Value 1 -Type Dword -Force
+
+    Write-Host "Windows Update Settings have been updated."
+    Write-Host "This server will install updates every Sunday at $time AM local time"
+
+}

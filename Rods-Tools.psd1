@@ -12,7 +12,7 @@
 RootModule = 'Rods-Tools.psm1'
 
 # Version number of this module.
-ModuleVersion = '24.6.28.0'
+ModuleVersion = '24.6.30.0'
 
 
 # Fix for Error on publish
@@ -85,7 +85,8 @@ FunctionsToExport = @(
     'Uninstall-WolfSecurity',
     "Enable-Win11onUnsupportedHW",
     # Server Tools
-    'Get-FailedWindowsLogons'
+    'Get-FailedWindowsLogons',
+    'Set-WindowsUpdateConfig',
     # RD Server Tools
     'Enable-OfficeSharedActivation',
     'Get-RDGWLogons',
