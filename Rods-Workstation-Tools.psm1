@@ -294,6 +294,8 @@ function Uninstall-WolfSecurity
     winget uninstall "HP Wolf Security - Console" --silent
     winget uninstall "HP Assess and Respond" --silent
     winget uninstall "HP Security Update Service" --silent
+    winget uninstall "HP Sure Run" --silent
+    winget uninstall "HP Sure Recover" --silent
     winget uninstall "HP Client Security Manager" --silent
 
     Write-Host "Script completed." -ForegroundColor Yellow
