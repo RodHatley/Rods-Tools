@@ -51,7 +51,7 @@ function Set-WindowsUpdateConfig
 .NOTES
     Author: Rod Hatley
 #>
-    param ([Switch] $Earlier,[Switch] $Later)
+    param ([Switch] $Early,[Switch] $Late)
 
     # Check Admin Elevation Status
     if ((Get-AdminStatus) -ieq $false)
@@ -60,23 +60,23 @@ function Set-WindowsUpdateConfig
         Return
     }
     
-    if ($Earlier)
+    if ($Early)
     {
-        if($Earlier -eq $Later)
+        if($Early -eq $Late)
         {
-            Write-Host "Conflicting Command Line Arguments used.  Cannot use -Earlier and -Latter at the same time" -ForegroundColor Red
+            Write-Host "Conflicting Command Line Arguments used.  Cannot use -Early and -Late at the same time" -ForegroundColor Red
             Write-Host "No changes were made."
             Return
         }
     }
 
     $time = 3
-    if ($Earlier)
+    if ($Early)
     {
         $time = 1
     }
 
-    if ($Later)
+    if ($Late)
     {
         $time = 5
     }
