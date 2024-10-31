@@ -12,7 +12,7 @@
 RootModule = 'Rods-Tools.psm1'
 
 # Version number of this module.
-ModuleVersion = '24.6.30.0'
+ModuleVersion = '24.10.31.0'
 
 
 # Fix for Error on publish
