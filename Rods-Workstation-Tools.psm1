@@ -247,7 +247,12 @@ function Disable-FastStartup
     $name = "HiberbootEnabled"
     $value = "0"
     New-ItemProperty -Path $path\$key -Name $name -Value $value -PropertyType DWORD -Force | Out-Null
-    Write-Host "Windows Fast Startup is now Disabled."
+
+    # Disable Sleep / Standby on AC Power
+    powercfg.exe -X standby-timeout-ac 0
+    powercfg.exe -X hibernate-timeout-ac 0
+
+        Write-Host "Windows Fast Startup is now Disabled.  Windows set to not Sleep or Hibernate on AC Power"
 }
 
 function Enable-FastStartup
