@@ -252,7 +252,7 @@ function Disable-FastStartup
     powercfg.exe -X standby-timeout-ac 0
     powercfg.exe -X hibernate-timeout-ac 0
 
-        Write-Host "Windows Fast Startup is now Disabled.  Windows set to not Sleep or Hibernate on AC Power"
+    Write-Host "Windows Fast Startup is now Disabled.  Windows set to not Sleep or Hibernate on AC Power"
 }
 
 function Enable-FastStartup
