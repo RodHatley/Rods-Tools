@@ -80,7 +80,7 @@ function Optimize-Win11
     param([Switch]$ClearStartMenu)
     
     Write-Host "Optimize Windows 11" -ForegroundColor Yellow
-    Write-Host "v24.6.28" -ForegroundColor Yellow
+    Write-Host "v25.7.27" -ForegroundColor Yellow
 
     # Check Admin Elevation Status
     if ((Get-AdminStatus) -ieq $false)
@@ -113,6 +113,12 @@ function Optimize-Win11
     winget uninstall "myHP" --silent
     winget uninstall "Poly Lens" --silent
 
+    # Remove Lenovo Apps
+    Write-Host "`nRemoving Lenovo Apps..."
+    Write-Host "Note that some of these apps will prompt for user interaction to uninstall."
+    winget uninstall ARP\Machine\X64\McAfee.wps --silent # Remove McAfee
+    winget uninstall "WebAdvisor by McAfee" --silent
+
     Write-Host "`nApplying Taskbar and Start Menu optimizations..."
     # Remove Taskview and Chat Icons from Taskbar
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Value 0 -Type Dword -Force
@@ -126,7 +132,8 @@ function Optimize-Win11
     UnPinFromTaskBar 'Amazon.com'
     UnPinFromTaskBar 'HP Audio Control'
     UnPinFromTaskBar "AI Meeting Manager"
-
+    UnPinFromTaskBar "Lenovo Smart Meeeting"
+    
     # Remove Printers
     Remove-Printer "Fax" -ErrorAction SilentlyContinue
     Remove-Printer "Microsoft XPS Document Writer" -ErrorAction SilentlyContinue
@@ -303,7 +310,7 @@ function Uninstall-WolfSecurity
     
     Write-Host "Uninstalling Wolf Security and related services..." -ForegroundColor Yellow
 
-    winget uninstall "HP Wolf Security" --silent
+    winget uninstall "HP Wolf Security" --silent --accept-source-agreements
     winget uninstall "HP Wolf Security - Console" --silent
     winget uninstall "HP Assess and Respond" --silent
     winget uninstall "HP Security Update Service" --silent
