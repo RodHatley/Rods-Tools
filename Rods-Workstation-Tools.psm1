@@ -80,7 +80,7 @@ function Optimize-Win11
     param([Switch]$ClearStartMenu)
     
     Write-Host "Optimize Windows 11" -ForegroundColor Yellow
-    Write-Host "v25.7.27" -ForegroundColor Yellow
+    Write-Host "v25.7.28" -ForegroundColor Yellow
 
     # Check Admin Elevation Status
     if ((Get-AdminStatus) -ieq $false)
@@ -145,6 +145,11 @@ function Optimize-Win11
     New-ItemProperty -Path "HKCU:Console\%%Startup" -Name "DelegationTerminal" -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" -Type String -Force | Out-Null
 
     Write-Host "`nUpdating System Tray to Show OneDrive and Teams icons (apps must be already running and logged in)..."
+    
+    # Set Aktion Tray Icon to always be visible in the System Tray
+    $key = Get-ChildItem -LiteralPath "hkcu:\Control Panel\NotifyIconSettings" | Get-ItemProperty | Where-Object { $_.ExecutablePath -like "*Agent_Tray_DotNET.exe" }
+    if ($key.PSPath) { Set-ItemProperty -Path $key.PSPath -Name "IsPromoted" -Value 1 -Force }
+    
     # Set OneDrive Icon to always be visable in System Tray
     $key = Get-ChildItem -LiteralPath "hkcu:\Control Panel\NotifyIconSettings" | Get-ItemProperty | Where-Object { $_.ExecutablePath -like "*OneDrive.exe" }
     if ($key.PSPath) { Set-ItemProperty -Path $key.PSPath -Name "IsPromoted" -Value 1 -Force }
