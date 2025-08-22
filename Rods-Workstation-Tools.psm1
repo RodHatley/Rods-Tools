@@ -80,7 +80,7 @@ function Optimize-Win11
     param([Switch]$ClearStartMenu)
     
     Write-Host "Optimize Windows 11" -ForegroundColor Yellow
-    Write-Host "v25.7.27" -ForegroundColor Yellow
+    Write-Host "v25.8.8" -ForegroundColor Yellow
 
     # Check Admin Elevation Status
     if ((Get-AdminStatus) -ieq $false)
@@ -110,11 +110,13 @@ function Optimize-Win11
     winget uninstall "Mixed Reality Portal"
     
     # Remove HP Apps
+    Write-Host "`nRemoving HP Apps if found..."
     winget uninstall "myHP" --silent
     winget uninstall "Poly Lens" --silent
+    winget uninstall "HP" --silent
 
     # Remove Lenovo Apps
-    Write-Host "`nRemoving Lenovo Apps..."
+    Write-Host "`nRemoving Lenovo Apps if found..."
     Write-Host "Note that some of these apps will prompt for user interaction to uninstall."
     winget uninstall ARP\Machine\X64\McAfee.wps --silent # Remove McAfee
     winget uninstall "WebAdvisor by McAfee" --silent
