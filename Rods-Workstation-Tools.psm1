@@ -80,7 +80,7 @@ function Optimize-Win11
     param([Switch]$ClearStartMenu)
     
     Write-Host "Optimize Windows 11" -ForegroundColor Yellow
-    Write-Host "v25.7.28" -ForegroundColor Yellow
+    Write-Host "v25.8.21" -ForegroundColor Yellow
 
     # Check Admin Elevation Status
     if ((Get-AdminStatus) -ieq $false)
